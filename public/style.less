@@ -1,0 +1,320 @@
+
+
+@background: #f7f7f7;
+@accent: #456;
+
+@primary: #019875;
+@default: @accent;
+@info: #19B5FE;
+@danger: #f33;
+@success: #26A65B;
+@warning: #D35400;
+@anim-fast: 0.5s;
+
+.placeholder(@rules) {
+    &::-webkit-input-placeholder { @rules(); }
+    &::-moz-placeholder          { @rules(); }
+    &:-ms-input-placeholder      { @rules(); }
+}
+
+html {
+    height: 100%;
+    overflow-y: scroll!important;
+    margin: 0!important;
+}
+
+body {
+    background: @background;
+    font-family: 'Share Tech Mono', cantarell, monospace;
+    font-size: 150%;
+    color: @accent;
+}
+
+a {
+    color: @accent;
+    &:hover, &.active {
+        color: @primary;
+        text-decoration: none;
+    }
+}
+
+[ng-view] a {
+    border-bottom: 1px solid @accent;
+    &:hover {
+        border-color: @primary;
+    }
+    &.text-danger {
+        border-bottom: none;
+        color: fade(@danger, 70%);
+        &:hover {
+            color: @danger;
+        }
+    }
+    &.text-info {
+        border-bottom: none;
+        color: fade(@info, 70%);
+        &:hover {
+            color: @info;
+        }
+    }
+    &.text-default {
+        border-bottom: none;
+        color: fade(@default, 70%);
+        &:hover {
+            color: @default;
+        }
+    }
+}
+
+[ng-click] {
+    cursor: pointer;
+}
+@media (max-width: 1024px) {
+    .container {
+        width: auto;
+    }
+}
+
+* {
+    outline: 0!important;
+}
+
+h1,
+h2 {
+    font-family: 'Bungee Hairline', cursive;
+    font-weight: bold;
+    color: @primary;
+}
+
+.panel {
+    box-shadow: 0 0 10px #ccc;
+}
+
+.navbar li a:active,
+.navbar li a:focus,
+.navbar li a:hover,
+.navbar li.active a {
+    background: transparent;
+}
+
+.nomargin {
+    margin: 0;
+}
+
+.btn {
+    transition: background-color @anim-fast;
+    background-color: @background;
+    font-size: inherit;
+    line-height: inherit;
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: @background!important;
+    }
+
+    &.btn-primary {
+        color: @primary;
+        border-color: @primary!important;
+
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: @primary;
+        }
+    }
+
+    &.btn-default {
+        color: @default;
+        border-color: @default!important;
+
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: @default;
+        }
+    }
+
+    &.btn-danger {
+        color: @danger;
+        border-color: @danger!important;
+
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: @danger;
+        }
+    }
+
+    &.btn-warning {
+        color: @warning;
+        border-color: @warning!important;
+
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: @warning;
+        }
+    }
+}
+
+input.form-control,
+textarea.form-control {
+    transition: background-color @anim-fast;
+    background-color: transparent;
+    color: @accent;
+    border: 1px solid fade(@accent, 50%);
+    font-size: inherit;
+    line-height: inherit;
+
+    &:focus {
+        border: 1px solid @primary;
+    }
+}
+
+.alert {
+    transition: background-color @anim-fast;
+    background-color: fade(@background, 80%);
+    font-size: inherit;
+    line-height: inherit;
+
+    &.alert-success {
+        color: @success;
+        border-color: @success;
+    }
+    &.alert-danger {
+        color: @danger;
+        border-color: @danger;
+    }
+    &.alert-info {
+        color: @info;
+        border-color: @info;
+    }
+    &.alert-warning {
+        color: @warning;
+        border-color: @warning;
+    }
+}
+
+.placeholder({
+    color: fade(@accent, 50%)!important;
+});
+
+hr {
+    border-top: 1px solid darken(@background, 10%);
+}
+
+.auto-width {
+    width: auto;
+}
+
+.full-width {
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: @background;
+}
+
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: @primary;
+    border: 0;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: @primary;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.thumbnail {
+    background: transparent;
+    border-color: @accent;
+    &:hover {
+        border-color: @primary;
+        .caption, h2 {
+            color: @primary;
+        }
+    }
+    .caption, h2 {
+        color: @accent;
+    }
+}
+
+.text-danger {
+    color: @danger;
+}
+.text-info {
+    color: @info;
+}
+.text-primary {
+    color: @primary;
+}
+.text-default {
+    color: @accent;
+}
+.text-success {
+    color: @success;
+}
+.text-warning {
+    color: @warning;
+}
+div.bg {
+    background-position: center;
+    background-size: cover;
+}
+
+
+#alerts {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    width: 20em;
+}
+
+header {
+    position: fixed!important;
+    top: 0;
+    left: 0;
+    background: fade(@background, 80%);
+    width: 100%;
+    // box-shadow: 0 0 10px fade(#000, 50%);
+    // border-bottom: 1px solid @accent!important;
+}
+
+
+img {
+    transition:
+        opacity 1s,
+        transform .2s,
+        box-shadow .4s;
+    &.loading {
+        opacity: 0;
+    }
+    &.grayscale {
+        position: relative;
+        z-index: 1;
+        &:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px #000;
+            z-index: 2;
+        }
+    }
+}
+

@@ -1,0 +1,77 @@
+<div class="container bs-docs-container" ng-init="refresh()">
+
+    <form class="form-horizontal" ng-if="form" ng-submit="submit()">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nome</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="form.name" class="form-control" placeholder="Nome">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Salva</button>
+                <a class="btn btn-warning" ng-click="$parent.form = null">Annulla</a>
+            </div>
+        </div>
+    </form>
+
+    <div ng-if="!form">
+        <div style="margin: 2em -1em 3em;">
+            <div class="col-sm-4 form-group">
+                <a class="btn btn-default" ng-click="setForm()">Nuovo</a>
+            </div>
+            <div class="col-sm-offset-4 col-sm-4 form-group">
+                <input type="text" class="form-control"
+                    ng-model="$parent.filters.name"
+                    ng-model-options="{ debounce: 200 }"
+                    placeholder="Filtra per nome">
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div class="alert alert-info text-center" ng-if="groups && !groups.total">
+            Nessun gruppo trovato.
+        </div>
+
+        <div class="groups">
+            <div ng-repeat="group in groups.data" style="margin: 1em 0" class="group col-md-6">
+                <h2 class="nomargin">[{{group.id}}] {{ group.name }}</h2>
+                <span>{{ group.size }} contatti</span>
+                <a ng-click="setForm(group)" class="text-default">
+                    <i class="fa fa-edit"></i> modifica
+                </a>
+                <a ng-click="addContacts(group)" class="text-default">
+                    <i class="fa fa-users"></i> contatti
+                </a>
+                <a ng-click="sendEmail(group)" class="text-default">
+                    <i class="fa fa-at"></i> scrivi
+                </a>
+                <a ng-click="delete(group)" class="text-danger">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+
+        <paging
+          page="$parent.groups.current_page"
+          page-size="$parent.groups.per_page"
+          total="$parent.groups.total"
+          show-prev-next="true"
+          show-first-last="true"
+          paging-action="filters.page = page">
+        </paging>
+
+    </div>
+</div>
+
+<style media="screen">
+    .group a {
+        display: none;
+    }
+    .group:hover a {
+        display: inline;
+    }
+</style>

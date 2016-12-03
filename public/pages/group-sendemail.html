@@ -1,0 +1,41 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="cancel()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">Invia Email</h4>
+</div>
+<div class="modal-body">
+
+    <form class="form-horizontal" ng-submit="submit()">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Gruppo</label>
+            <div class="col-sm-10">
+                <input type="text" ng-value="group.name" class="form-control" disabled="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Oggetto</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="form.subject" class="form-control" placeholder="Oggetto">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Messaggio</label>
+            <div class="col-sm-10">
+                <textarea ng-model="form.message" class="form-control" placeholder="Messaggio" rows=10></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Salva</button>
+                <a class="btn btn-warning" ng-click="cancel()">Annulla</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <i>Puoi usare <code>%nome</code> nel messaggio per indicare il nome del destinatario.</i>
+</div>

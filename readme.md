@@ -1,0 +1,1 @@
+Currently nothing more than a contacts/group based newsletter management.

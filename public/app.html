@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="mainController">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base href="/">
+
+        <!-- Bootstrap and Bootstrap Flat -->
+        <link href="/theme/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/bootstrap-flat.min.css" rel="stylesheet">
+        <link href="/theme/bootstrap-flat-extras.min.css" rel="stylesheet">
+        <link href="/style.less" rel="stylesheet/less">
+
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="/theme/angular.min.js" charset="utf-8"></script>
+        <script src="/theme/angular-it.js" charset="utf-8"></script>
+        <script src="/theme/angular-route.min.js" charset="utf-8"></script>
+        <script src="/theme/ui-bootstrap-tpls.min.js" charset="utf-8"></script>
+        <script src="/theme/ng-onload.js" charset="utf-8"></script>
+        <script src="/theme/paging.min.js" charset="utf-8"></script>
+
+        <script type="text/javascript">
+            var app = angular.module('app', ['ngRoute', 'ui.bootstrap', 'ngOnload', 'bw.paging'])
+        </script>
+
+        <!-- Utils & Constants -->
+        <script src="/js/utils.js" charset="utf-8"></script>
+        <script src="/js/constants.js" charset="utf-8"></script>
+
+        <!-- Angluar services -->
+        <script src="/js/auth.js" charset="utf-8"></script>
+        <script src="/js/element-picker.js" charset="utf-8"></script>
+        <script src="/js/status.js" charset="utf-8"></script>
+
+        <!-- Controllers -->
+        <script src="/js/login-controller.js" charset="utf-8"></script>
+        <script src="/js/home-controller.js" charset="utf-8"></script>
+        <script src="/js/contact-controller.js" charset="utf-8"></script>
+        <script src="/js/group-controller.js" charset="utf-8"></script>
+        <script src="/js/group-sendemail-controller.js" charset="utf-8"></script>
+        <script src="/js/main-controller.js" charset="utf-8"></script>
+
+        <!-- Main script -->
+        <script src="/js/main.js" charset="utf-8"></script>
+
+        <title ng-bind="config.title + (page.title ? ' | ' + page.title : '')">Gestionale</title>
+        <meta ng-repeat="(i, meta) in page.meta" name="{{ i }}" content="{{ meta }}">
+        <link href="/fonts/loader.css" rel="stylesheet">
+
+        <script src="/theme/less.min.js" type="text/javascript"></script>
+
+    </head>
+
+    <body ng-clock>
+        <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                    <a href="/" class="navbar-brand ng-class:{active:isMenu('/')}">{{ config.title }}</a>
+                </div>
+                <nav id="bs-navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav" ng-if="logged()">
+                        <li>
+                            <a href="/contacts" class="ng-class:{active:isMenu('/contacts')}">
+                                Contatti
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/groups" class="ng-class:{active:isMenu('/groups')}">
+                                Gruppi
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav" ng-if="!logged()">
+                        <li>
+                            <a href="/login" class="ng-class:{active:isMenu('/login')}">
+                                Login
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" ng-if="logged()">
+                        <li>
+                            <a>{{ user().email }}</a>
+                        </li>
+                        <li>
+                            <a ng-click="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+
+        <div id="alerts"></div>
+
+        <div class="text-center" style="margin-top: 70px">
+            <h1 class="nomargin">{{ page.title }}</h1>
+        </div>
+        <br>
+        <div ng-view></div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="/theme/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/theme/bootstrap.min.js"></script>
+
+        <script src="/custom.js" charset="utf-8"></script>
+
+        <link rel="stylesheet" href="/theme/jquery.justified.css">
+        <script src="/theme/jquery.justified.min.js"></script>
+
+        <script src="/theme/imagesloaded.pkgd.min.js"></script>
+
+        <!-- Magnific Popup -->
+        <link rel="stylesheet" href="/theme/magnific-popup/magnific-popup.css">
+        <script src="/theme/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    </body>
+
+</html>

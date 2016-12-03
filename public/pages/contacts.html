@@ -1,0 +1,87 @@
+<div class="container bs-docs-container" ng-init="refresh()">
+
+    <form class="form-horizontal" ng-if="form" ng-submit="submit()">
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nome</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="form.name" class="form-control" placeholder="Nome">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" ng-model="form.email" class="form-control" placeholder="Email">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Salva</button>
+                <a class="btn btn-warning" ng-click="$parent.form = null">Annulla</a>
+            </div>
+        </div>
+
+    </form>
+
+    <div ng-if="!form">
+        <div style="margin: 2em -1em 3em;">
+            <div class="col-sm-4 form-group">
+                <a class="btn btn-default" ng-click="setForm()">Nuovo</a>
+            </div>
+            <div class="col-sm-4 form-group">
+                <input type="text" class="form-control"
+                    ng-model="$parent.filters.name"
+                    ng-model-options="{ debounce: 200 }"
+                    placeholder="Filtra per nome">
+            </div>
+            <div class="col-sm-4 form-group">
+                <input type="text" class="form-control"
+                    ng-model="$parent.filters.email"
+                    ng-model-options="{ debounce: 200 }"
+                    placeholder="Filtra per email">
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div class="alert alert-info text-center" ng-if="contacts && !contacts.total">
+            Nessun contatto trovato.
+        </div>
+
+        <div class="contacts">
+            <div ng-repeat="contact in contacts.data" style="margin: 1em 0" class="contact col-md-6">
+                <h3 class="nomargin">{{ contact.name }}</h3>
+                <code>{{ contact.email }}</code>
+                <a ng-click="setForm(contact)" class="text-default">
+                    <i class="fa fa-edit"></i> modifica
+                </a>
+                <a ng-click="delete(contact)" class="text-danger">
+                    <i class="fa fa-times"></i> elimina
+                </a>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+
+        <paging
+          page="$parent.contacts.current_page"
+          page-size="$parent.contacts.per_page"
+          total="$parent.contacts.total"
+          show-prev-next="true"
+          show-first-last="true"
+          paging-action="filters.page = page">
+        </paging>
+
+    </div>
+</div>
+
+<style media="screen">
+    .contact a {
+        display: none;
+    }
+    .contact:hover a {
+        display: inline;
+    }
+</style>

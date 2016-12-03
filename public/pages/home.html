@@ -1,0 +1,35 @@
+<div class="container">
+
+    <section ng-init="refreshGroupEmails()">
+        <h3>Email ai gruppi</h3>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Gruppo</th>
+                    <th>Data</th>
+                    <th>Ultimo aggiornamento</th>
+                    <th>
+                        <i class="fa fa-refresh fa-fw text-primary" ng-click="refreshGroupEmails()"></i>
+                        Stato
+                        [{{ group_emails.updated_at | date: 'HH:mm:ss' }}]
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ge in group_emails.data">
+                    <td>{{ ge.group.name }}</td>
+                    <td>{{ ge.created_at | datify | date: 'HH:mm:ss - d MMM yyyy' }}</td>
+                    <td>{{ ge.updated_at | datify | date: 'HH:mm:ss - d MMM yyyy' }}</td>
+                    <td>
+                        <span ng-if="ge.is_finished" class="text-success">Completato</span>
+                        <span ng-if="!ge.is_finished" class="text-warning">In coda</span>
+                    </td>
+                </tr>
+                <tr ng-if="!group_emails || !group_emails.data.length">
+                    <td colspan=3>Nessuna email inviata</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

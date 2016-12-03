@@ -27,27 +27,22 @@ app.factory('AuthInterceptor', function($rootScope, $q, $status, AUTH_EVENTS) {
     return {
         responseError: (res) => {
 
-            var auth_error = {
-                401: AUTH_EVENTS.notAuthenticated,
-            }[res.status]
-
-            if (auth_error) {
-                $rootScope.$broadcast(auth_error, res)
-            }
-
             if (!res.config.errorHandled) {
                 switch (res.status) {
                     case 500:
                         $status.error("Errore 500, contattare l'assistenza")
-                        break;
+                        break
                     case 403:
                         $status.error('Accesso negato')
-                        break;
+                        break
+
+                    case 401:
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated, res)
+                        break
+
                     case 400:
-                        if (res.data.error) {
-                            $status.error(res.data.error)
-                            break;
-                        }
+                        $status.error(res.data.error ? res.data.error : 'Richiesta non valida')
+                        break
                     default:
                         $status.error("Errore sconosciuto, contattare l'assistenza")
                 }

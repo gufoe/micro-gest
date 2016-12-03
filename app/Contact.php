@@ -11,6 +11,6 @@ class Contact extends Model
 
     public static $rules = [
         'name'    => 'required',
-        'email'    => 'required',
+        'email'    => 'required|email',
     ];
 }

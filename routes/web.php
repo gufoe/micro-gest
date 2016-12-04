@@ -23,15 +23,13 @@ $app->group(['middleware' => 'ajax'], function () use ($app) {
 
     // Contacts
     $app->get('contacts', 'ContactController@list');
-    $app->post('contacts/', 'ContactController@edit');
-    $app->post('contacts/{id?}', 'ContactController@edit');
+    $app->post('contacts[/{id}]', 'ContactController@edit');
     $app->delete('contacts/{id}', 'ContactController@delete');
 
     // Groups
     $app->get('groups', 'GroupController@list');
     $app->get('groups/{id}', 'GroupController@single');
-    $app->post('groups/', 'GroupController@edit');
-    $app->post('groups/{id}', 'GroupController@edit');
+    $app->post('groups[/{id}]', 'GroupController@edit');
     $app->post('groups/{id}/contacts', 'GroupController@setContacts');
     $app->delete('groups/{id}', 'GroupController@delete');
 

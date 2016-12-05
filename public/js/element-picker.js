@@ -29,7 +29,7 @@ app.controller('elementPickerController', function($scope, $http, $route, $uibMo
 		var query = {
 			q: $scope.query
 		}
-		info('Searching...'+JSON.stringify(query))
+		info('Loading...')
 		$http.get($scope.url, { params: query }).then(res => {
 			$scope.page = res.data
 			if (!$scope.page.data.length)

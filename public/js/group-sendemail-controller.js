@@ -1,4 +1,4 @@
-app.controller('groupSendemailController', function($scope, $http, $status, $uibModalInstance, args) {
+app.controller('groupSendemailController', function($scope, $auth, $http, $status, $uibModalInstance, args) {
     $auth.enforce()
     $scope.group = args.group
 

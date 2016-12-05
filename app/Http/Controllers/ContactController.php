@@ -21,11 +21,14 @@ class ContactController extends Controller
         } else {
             $query = Contact::limit(1000);
         }
-        if (($s = $request->input('name')) || ($s = $request->input('q'))) {
+        if (($s = $request->input('name'))) {
             $query->where('name', 'like', "%{$s}%");
         }
         if (($s = $request->input('email'))) {
             $query->where('email', 'like', "%{$s}%");
+        }
+        if (($s = $request->input('q'))) {
+            $query->search($s);
         }
         return $query->paginate(10);
     }

@@ -1,4 +1,5 @@
 app.controller('contactController', function($scope, $http, $auth, $location, $status, $routeParams) {
+    $auth.enforce()
     $scope.page.title = 'Contatti'
     $scope.page.meta = null
 

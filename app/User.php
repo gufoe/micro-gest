@@ -11,9 +11,13 @@ class User extends Model
     protected $visible = ['id', 'name', 'email'];
 
     public static $rules = [
-        'email'    => 'required|unique:users',
-        'name'    => 'required|unique:users',
-        'password' => 'required|min:7',
+        'email'    => 'required|email|unique:users',
+        'name'     => 'required',
+        'password' => 'min:5',
+    ];
+    public static $edit_rules = [
+        'email'    => 'email|unique:users',
+        'password' => 'min:5',
     ];
 
     public function generateSession()

@@ -1,48 +1,68 @@
-app.service('$auth', function($q, $http, $location) {
-    var self = this
+app.service('$auth', function($http, $location, $status) {
+    var self = this,
+        _token = null,
+        _user = null
 
     function refreshHeaders() {
-        var token = self.getToken()
-        if (token)
-            $http.defaults.headers.common['X-Auth-Token'] = token
+        if (_token)
+            $http.defaults.headers.common['X-Auth-Token'] = _token
         else
             $http.defaults.headers.common['X-Auth-Token'] = undefined
     }
 
     this.getUser = () => {
-        return JSON.parse(localStorage.getItem('user'))
-    }
-    this.setUser = user => {
-        return localStorage.setItem('user', JSON.stringify(user))
+        if (!_user) {
+            try {
+                _user = JSON.parse(localStorage.getItem('user'))
+            } catch (e) {}
+        }
+        return _user
     }
 
     this.getToken = () => {
-        return localStorage.getItem('token')
+        if (!_token) {
+            try {
+                _token = JSON.parse(localStorage.getItem('token'))
+            } catch (e) {}
+        }
+        return _token
     }
-    this.setToken = token => {
-        if (!token)
-            localStorage.removeItem('token')
-        else
-            localStorage.setItem('token', token)
 
+    this.setUser = (user) => {
+        localStorage.setItem('user', JSON.stringify((_user = user)))
+    }
+
+    this.setToken = (token) => {
+        localStorage.setItem('token', JSON.stringify((_token = token)))
         refreshHeaders()
     }
-    this.check = () => {
-        if (!Token.get()) $location.path('/login')
+
+    this.enforce = () => {
+        if (!this.logged()) {
+            $status.error('Autenticazione richiesta')
+            $location.path('/login')
+            throw 'disconnected'
+        }
     }
 
     this.logged = () => {
-        return !!this.getToken()
+        var auth = _token && _user
+        return auth
+    }
+
+    this.reset = () => {
+        this.setToken(null)
+        this.setUser(null)
     }
 
     this.logout = () => {
-        $http.delete('/sessions').then(
-            res => {
-                self.setToken(null)
-                $location.path('/login')
-            }
-        )
+        $http.delete('/sessions').then(res => {
+            this.reset()
+            $location.path('/login')
+        })
     }
 
+    this.getToken()
+    this.getUser()
     refreshHeaders()
 })

@@ -28,7 +28,6 @@
 
         <!-- Utils & Constants -->
         <script src="/js/utils.js" charset="utf-8"></script>
-        <script src="/js/constants.js" charset="utf-8"></script>
 
         <!-- Angluar services -->
         <script src="/js/auth.js" charset="utf-8"></script>
@@ -37,6 +36,7 @@
 
         <!-- Controllers -->
         <script src="/js/login-controller.js" charset="utf-8"></script>
+        <script src="/js/account-controller.js" charset="utf-8"></script>
         <script src="/js/home-controller.js" charset="utf-8"></script>
         <script src="/js/contact-controller.js" charset="utf-8"></script>
         <script src="/js/group-controller.js" charset="utf-8"></script>
@@ -86,7 +86,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-if="logged()">
                         <li>
-                            <a>{{ user().email }}</a>
+                            <a href="/account">{{ user().email }}</a>
                         </li>
                         <li>
                             <a ng-click="logout()">Logout</a>

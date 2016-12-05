@@ -1,4 +1,4 @@
-app.controller('mainController', function($scope, $http, $auth, $location, AUTH_EVENTS, $status) {
+app.controller('mainController', function($rootScope, $scope, $http, $auth, $location, $status, $window) {
     $scope.config = {
         title: 'Gestionale'
     }
@@ -6,18 +6,18 @@ app.controller('mainController', function($scope, $http, $auth, $location, AUTH_
         title: null,
         meta: null,
     }
-    $scope.logged = $auth.logged
-    $scope.logout = $auth.logout
+    $window.logged = $scope.logged = $auth.logged
+    $window.logout = $scope.logout = $auth.logout
 
-    $scope.user = () => {
+    $rootScope.$on('disconnected', () => {
+        $auth.reset()
+        $status.error('Sessione scaduta')
+        $location.path('/login')
+    })
+
+    $window.user = $scope.user = () => {
         return $auth.getUser()
     }
-
-    $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
-        $auth.setToken(null)
-        $status.error('User disconnected')
-        $location.path('/login');
-    })
 
     $scope.isMenu = path => {
         if ($location.path() == path)

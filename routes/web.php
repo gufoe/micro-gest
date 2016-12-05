@@ -19,6 +19,7 @@ $app->group(['middleware' => 'ajax'], function () use ($app) {
     // Users
     $app->get('users', 'UserController@list');
     $app->post('users', 'UserController@signup');
+    $app->post('users/self', 'UserController@account');
     $app->get('users/self', 'UserController@self');
 
     // Contacts

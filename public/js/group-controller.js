@@ -1,4 +1,5 @@
 app.controller('groupController', function($scope, $http, $uibModal, $location, $status, $elementPicker) {
+    $auth.enforce()
     $scope.page.title = 'Gruppi'
     $scope.page.meta = null
 

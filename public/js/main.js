@@ -9,6 +9,11 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/pages/login.html',
             controller: 'loginController'
         })
+        // Account settings
+        .when('/account', {
+            templateUrl: '/pages/account.html',
+            controller: 'accountController'
+        })
         // Contacts
         .when('/contacts', {
             templateUrl: '/pages/contacts.html',
@@ -23,7 +28,7 @@ app.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true)
 })
 
-app.factory('AuthInterceptor', function($rootScope, $q, $status, AUTH_EVENTS) {
+app.factory('AuthInterceptor', function($rootScope, $q, $status, $location) {
     return {
         responseError: (res) => {
 
@@ -37,7 +42,7 @@ app.factory('AuthInterceptor', function($rootScope, $q, $status, AUTH_EVENTS) {
                         break
 
                     case 401:
-                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated, res)
+                        $rootScope.$broadcast('disconnected')
                         break
 
                     case 400:

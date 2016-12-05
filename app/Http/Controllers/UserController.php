@@ -38,4 +38,33 @@ class UserController extends Controller
         $user = User::create($data);
         return success('user', $user);
     }
+
+    public function account(Request $request)
+    {
+        $data = [
+            'email'    => $request->input('email'),
+            'name'     => $request->input('name'),
+            'password' => $request->input('password'),
+        ];
+
+        if ($data['email'] == user()->email) {
+            unset($data['email']);
+        }
+        if ($data['name'] == user()->name) {
+            unset($data['name']);
+        }
+        if (!$data['password']) {
+            unset($data['password']);
+        }
+
+        if (!user()->login($request->input('old_password'))) {
+            return error('La vecchia password non corrisponde.');
+        }
+
+        validate(User::$edit_rules, $data);
+
+        user()->update($data);
+
+        return user();
+    }
 }

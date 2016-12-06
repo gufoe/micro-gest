@@ -24,6 +24,9 @@ $app->group(['middleware' => 'ajax'], function () use ($app) {
 
     // Contacts
     $app->get('contacts', 'ContactController@list');
+    $app->post('contacts/invoice', 'ContactController@addInvoice');
+    $app->get('contacts/{token}/invoices', 'ContactController@invoices');
+    $app->get('contacts/{token}/info', 'ContactController@info');
     $app->post('contacts[/{id}]', 'ContactController@edit');
     $app->delete('contacts/{id}', 'ContactController@delete');
 
@@ -38,6 +41,8 @@ $app->group(['middleware' => 'ajax'], function () use ($app) {
     $app->get('groups-emails', 'GroupEmailController@list');
     $app->post('groups-emails', 'GroupEmailController@queue');
 });
+
+$app->get('download/{token}', ['as' => 'download', 'uses' => 'FileController@getDownload']);
 
 // Any other requests is sent to the frontend
 $app->get('{path:.*}', function () use ($app) {

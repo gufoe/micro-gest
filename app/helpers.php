@@ -96,8 +96,12 @@ function notify($to, $name, $subject, $body, $link = null)
         'link'    => $link,
     ];
 
-    return Illuminate\Support\Facades\Mail::send('email', $vars, function ($msg) use ($subject, $to, $name) {
-        $msg->subject($subject);
-        $msg->to($to, $name);
-    });
+    try {
+        return Illuminate\Support\Facades\Mail::send('email', $vars, function ($msg) use ($subject, $to, $name) {
+            $msg->subject($subject);
+            $msg->to($to, $name);
+        });
+    } catch (Exception $e) {
+        return false;
+    }
 }

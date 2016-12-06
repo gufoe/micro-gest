@@ -24,6 +24,16 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/pages/groups.html',
             controller: 'groupController'
         })
+        // Invoices
+        .when('/invoices', {
+            templateUrl: '/pages/invoices.html',
+            controller: 'invoiceController'
+        })
+        // Invoices history
+        .when('/invoices/:token', {
+            templateUrl: '/pages/invoice-history.html',
+            controller: 'invoiceHistoryController'
+        })
 
     $locationProvider.html5Mode(true)
 })
@@ -39,6 +49,9 @@ app.factory('AuthInterceptor', function($rootScope, $q, $status, $location) {
                         break
                     case 403:
                         $status.error('Accesso negato')
+                        break
+                    case 404:
+                        $status.error('Nessun risultato trovato')
                         break
 
                     case 401:

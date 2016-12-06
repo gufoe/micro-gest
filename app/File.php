@@ -9,7 +9,7 @@ class File extends Model
     protected $guarded = ['id'];
 
     private static $safe_extensions = [
-        'jpg', 'png', 'jpeg', 'gif',
+        'jpg', 'png', 'jpeg', 'gif', 'pdf',
     ];
     private static $error;
 
@@ -37,12 +37,12 @@ class File extends Model
         }
 
         if ($f == null) {
-            self::$error = 'No file has been uploaded.';
+            self::$error = 'Nessun file caricato.';
             return;
         }
 
         if (!$f->isValid()) {
-            self::$error = 'Error while uploading the file.';
+            self::$error = 'Errore durante il caricamento.';
             return false;
         }
         $ext = strtolower($f->getClientOriginalExtension());
@@ -50,7 +50,7 @@ class File extends Model
         $token = str_random(40);
 
         if (!in_array($ext, self::$safe_extensions)) {
-            self::$error = 'Invalid extension, please use one of the following: .'.implode(', .', self::$safe_extensions);
+            self::$error = 'Tipo di file non consentito, usare solo: .'.implode(', .', self::$safe_extensions);
             return false;
         }
 
@@ -71,6 +71,11 @@ class File extends Model
         return end($chunks);
     }
 
+    public function basename()
+    {
+        return basename($this->name, ".{$this->ext()}");
+    }
+
     ////////////////////////
     //  Dynamic functions //
     ////////////////////////
@@ -85,7 +90,9 @@ class File extends Model
 
     public function link($absolute = false)
     {
-        return ($absolute ? baseurl() : '').act('file.download', $this->token);
+        return ($absolute ? baseurl() : '').route('download', [
+            'token' => $this->token,
+        ]);
     }
 
     public function path()

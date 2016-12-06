@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Storico Fatture <span ng-bind="contact.name"></span></h2>
+    <br>
+    <br>
+
+        <div class="alert alert-info text-center" ng-if="invoices && !invoices.total">
+        Caricamento storico...
+    </div>
+
+    <div class="alert alert-info text-center" ng-if="!invoices">
+        Nessuna fattura trovata.
+    </div>
+
+    <div class="invoices" ng-if="invoices && invoices.data.length">
+
+        <table class="table table-striped" id="invoice-history">
+            <thead>
+                <tr>
+                    <th>Data caricamento</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="invoice in invoices.data" class="ng-class:{active:$first}">
+                    <td>
+                        {{ invoice.created_at | datify | date: 'HH:mm:ss - d MMM yyyy' }}
+                    </td>
+                    <td>
+                        <a href="{{ invoice.link }}" target="_blank">Scarica</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+
+<style media="screen">
+#invoice-history tr {
+    opacity: .7;
+}
+#invoice-history tr:hover, #invoice-history tr.active {
+    font-weight: bold;
+    opacity: 1;
+}
+.navbar {
+    display: none;
+}
+</style>

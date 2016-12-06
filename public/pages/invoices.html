@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Invio Fatture</h2>
+    <br>
+    <br>
+
+    <form class="form-horizontal" ng-submit="submit()" ng-if="!uploading">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Selezionare i file</label>
+            <div class="col-sm-9">
+                <input type="file" ng-files="$parent.files" class="form-control" multiple="">
+                <i>I file devono essere nel formato codicefiscale.tipo es. <code>TBBPCK83C15I326O.pdf</code></i>
+            </div>
+        </div>
+        <div class="form-group" ng-if="files.length">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+                <button type="submit" class="btn btn-success">Carica</button>
+            </div>
+        </div>
+
+    </form>
+    <ul>
+        <li ng-repeat="file in files">
+            <form ng-submit="upload(file)">
+                <b>{{ file.name }}</b>
+                ({{ file.size | bytes }})
+                <span ng-if="file.status" ng-class="file.status.class">{{ file.status.text }}</span>
+            </form>
+        </li>
+    </ul>
+</div>

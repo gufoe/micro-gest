@@ -37,4 +37,9 @@ app.controller('loginController', function($scope, $http, $auth, $location, $sta
             $location.path('/')
         })
     }
+
+    if ($scope.config.env == 'demo') {
+        $scope.form.email = 'demo@example.com'
+        $scope.form.password = 'demo'
+    }
 })

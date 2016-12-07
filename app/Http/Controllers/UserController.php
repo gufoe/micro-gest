@@ -44,6 +44,9 @@ class UserController extends Controller
 
     public function account(Request $request)
     {
+        if (app()->environment() == 'demo') {
+            return error('Non è consentito cambiare impostazioni nella modalità demo');
+        }
         $data = [
             'email'    => $request->input('email'),
             'name'     => $request->input('name'),

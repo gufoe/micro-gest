@@ -18,6 +18,7 @@ $app->group(['middleware' => 'ajax'], function () use ($app) {
     $app->get('config', function () {
         return [
             'title'  => env('TITLE'),
+            'env'    => app()->environment(),
             'signup' => env('SIGNUP'),
         ];
     });

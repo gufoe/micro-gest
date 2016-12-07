@@ -1,13 +1,16 @@
 app.controller('mainController', function($rootScope, $scope, $http, $auth, $location, $status, $window) {
-    $scope.config = {
-        title: 'Gestionale'
-    }
+    $scope.config = {}
+    
     $scope.page = {
         title: null,
         meta: null,
     }
     $window.logged = $scope.logged = $auth.logged
     $window.logout = $scope.logout = $auth.logout
+
+    $http.get('/config').then(res => {
+        $scope.config = res.data
+    })
 
     $rootScope.$on('disconnected', () => {
         $auth.reset()

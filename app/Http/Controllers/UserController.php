@@ -24,6 +24,9 @@ class UserController extends Controller
 
     public function signup(Request $req)
     {
+        if (!env('SIGNUP')) {
+            return error('Registrazione disabilitata', ['disabled' => true]);
+        }
         $data = [
             'email'    => $req->input('email'),
             'name'     => $req->input('name'),

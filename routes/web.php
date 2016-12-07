@@ -11,8 +11,18 @@
 |
 */
 
-// Sessions
+// Only ajax calls
 $app->group(['middleware' => 'ajax'], function () use ($app) {
+
+    // Config
+    $app->get('config', function () {
+        return [
+            'title'  => env('TITLE'),
+            'signup' => env('SIGNUP'),
+        ];
+    });
+
+    // Sessions
     $app->post('sessions', 'SessionController@login');
     $app->delete('sessions', 'SessionController@logout');
 

@@ -20,6 +20,10 @@ app.controller('loginController', function($scope, $http, $auth, $location, $sta
     }
 
     $scope.signin = () => {
+        if (!$scope.config.signup) {
+            $status.error('La registrazione è disabilitata.')
+            return
+        }
         if (!$scope.form.email || !$scope.form.password) {
             $status.error('Campi non validi.')
             return
@@ -27,7 +31,6 @@ app.controller('loginController', function($scope, $http, $auth, $location, $sta
 
         $status.info('Signing in...', null)
         $http.post('/sessions', $scope.form).then(res => {
-            console.log('setting token to ', res.data.token)
             $auth.setToken(res.data.token)
             $auth.setUser(res.data.user)
             $status.success('Logged in!')

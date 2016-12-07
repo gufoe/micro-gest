@@ -62,6 +62,7 @@ $app->singleton(
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'ajax' => App\Http\Middleware\Ajax::class,
+    'https' => App\Http\Middleware\Https::class,
 ]);
 
 /*
@@ -93,7 +94,12 @@ $app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
+$middleware = [];
+if (env('FORCE_HTTPS')) {
+    $middleware[] = 'https';
+}
+
+$app->group(['namespace' => 'App\Http\Controllers', 'middleware' => $middleware], function ($app) {
     require __DIR__.'/../routes/web.php';
 });
 

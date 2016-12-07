@@ -20,10 +20,6 @@ app.controller('loginController', function($scope, $http, $auth, $location, $sta
     }
 
     $scope.signin = () => {
-        if (!$scope.config.signup) {
-            $status.error('La registrazione è disabilitata.')
-            return
-        }
         if (!$scope.form.email || !$scope.form.password) {
             $status.error('Campi non validi.')
             return

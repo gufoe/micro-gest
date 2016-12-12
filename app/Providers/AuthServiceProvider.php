@@ -32,8 +32,9 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) {
             $token = $request->header('X-Auth-Token');
-            if ($token) {
-                $user = User::byToken($token);
+            if ($token && ($user = User::byToken($token))) {
+                $user->token = $token;
+                \App\Session::whereToken($token)->first()->touch();
                 return $user;
             }
         });

@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\GenContacts::class,
+        \App\Console\Commands\DeleteOldSessions::class,
     ];
 
     /**

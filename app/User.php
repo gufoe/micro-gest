@@ -9,6 +9,7 @@ class User extends Model
 {
     protected $guarded = ['id'];
     protected $visible = ['id', 'name', 'email'];
+    protected $token = null;
 
     public static $rules = [
         'email'    => 'required|email|unique:users',
@@ -52,5 +53,15 @@ class User extends Model
     {
         $session = Session::whereToken($token)->first();
         return $session ? $session->user : null;
+    }
+
+    public function setTokenAttribute($token)
+    {
+        $this->token = $token;
+    }
+
+    public function getTokenAttribute()
+    {
+        return $this->token;
     }
 }

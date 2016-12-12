@@ -7,6 +7,7 @@
             <thead>
                 <tr>
                     <th>Gruppo</th>
+                    <th>Oggetto</th>
                     <th>Data</th>
                     <th>Ultimo aggiornamento</th>
                     <th>
@@ -19,6 +20,7 @@
             <tbody>
                 <tr ng-repeat="ge in group_emails.data">
                     <td>{{ ge.group.name }}</td>
+                    <td>{{ ge.subject }}</td>
                     <td>{{ ge.created_at | datify | date: 'HH:mm:ss - d MMM yyyy' }}</td>
                     <td>{{ ge.updated_at | datify | date: 'HH:mm:ss - d MMM yyyy' }}</td>
                     <td>
